@@ -34,18 +34,58 @@ class _MyHomePageState extends State<MyHomePage>
       body: SingleChildScrollView(
         child: Center(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               SizedBox(height: MediaQuery.of(context).size.height * 0.1),
               FadeTransition(
                 opacity: _controller,
                 child: SizedBox(
-                  width: 400,
-                  height: 400,
-                  child: Image.asset('taskify/assets/images/landing.png',
+                  width: 300,
+                  height: 300,
+                  child: Image.asset('assets/images/landing.png',
                       fit: BoxFit.contain),
                 ),
               ),
-              const SizedBox(height: 30),
+              const Align(
+                alignment: Alignment.centerRight,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: 58.0,
+                        right: 48.0,
+                        left: 48.0,
+                      ),
+                      child: Text(
+                        'Manage your daily tasks.',
+                        style: TextStyle(
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF1580C2),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: 16.0,
+                        right: 48.0,
+                        left: 48.0,
+                      ),
+                      child: Text(
+                        'Organize your day with ease!\nadd your daily and important events and reclaim your precious time.',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Color(0xFF1580C2),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 50),
               ScaleTransition(
                 scale: _controller,
                 child: ElevatedButton(
@@ -66,21 +106,25 @@ class _MyHomePageState extends State<MyHomePage>
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 58, 25, 0),
-                    textStyle: const TextStyle(
-                      fontSize: 17,
-                      fontFamily: 'Georgia',
-                      letterSpacing: 1.1,
+                    backgroundColor: Colors.transparent,
+                    elevation: 0,
+                    side: const BorderSide(color: Color(0xFF1580C2), width: 2),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
                     ),
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 25, vertical: 13),
+                        horizontal: 32, vertical: 12),
                   ),
                   child: const Text(
-                    "Begin your Journey",
-                    style: TextStyle(color: Color.fromARGB(255, 255, 230, 198)),
+                    'Get Started',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Color(0xFF1580C2),
+                    ),
                   ),
                 ),
               ),
+              const SizedBox(height: 30),
               SizedBox(
                   height: MediaQuery.of(context).size.height *
                       0.1), // Adjusts the space at the bottom
@@ -88,7 +132,7 @@ class _MyHomePageState extends State<MyHomePage>
           ),
         ),
       ),
-      backgroundColor: const Color.fromARGB(255, 239, 224, 209),
+      backgroundColor: const Color(0xFFEFFEFF),
     );
   }
 }
