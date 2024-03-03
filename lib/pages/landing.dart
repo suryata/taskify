@@ -1,17 +1,19 @@
 // ignore_for_file: non_constant_identifier_names, use_build_context_synchronously, library_private_types_in_public_api, constant_identifier_names, unused_local_variable
 import 'package:flutter/material.dart';
-import 'package:taskify/pages/home_page.dart';
+import 'page_controller.dart';
+import 'profileinput.dart';
+import '../data/database.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class Landing extends StatefulWidget {
+  const Landing({super.key});
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _LandingState createState() => _LandingState();
 }
 
-class _MyHomePageState extends State<MyHomePage>
-    with SingleTickerProviderStateMixin {
+class _LandingState extends State<Landing> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
+  late ToDoDataBase _database;
 
   @override
   void initState() {
@@ -20,6 +22,7 @@ class _MyHomePageState extends State<MyHomePage>
       duration: const Duration(milliseconds: 500),
       vsync: this,
     )..forward();
+    _database = ToDoDataBase();
   }
 
   @override
@@ -54,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage>
                   children: [
                     Padding(
                       padding: EdgeInsets.only(
-                        top: 58.0,
+                        top: 38.0,
                         right: 48.0,
                         left: 48.0,
                       ),
@@ -89,21 +92,29 @@ class _MyHomePageState extends State<MyHomePage>
               ScaleTransition(
                 scale: _controller,
                 child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation, secondaryAnimation) =>
-                            const HomePage(),
-                        transitionsBuilder:
-                            (context, animation, secondaryAnimation, child) {
-                          return FadeTransition(
-                            opacity: animation,
-                            child: child,
-                          );
-                        },
-                      ),
-                    );
+                  onPressed: () async {
+                    final profile = _database.loadProfileInfo();
+                    if (profile.name.isEmpty) {
+                      Navigator.pushReplacement(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  const ProfileInputPage(),
+                          transitionsBuilder:
+                              (context, animation, secondaryAnimation, child) {
+                            return FadeTransition(
+                                opacity: animation, child: child);
+                          },
+                        ),
+                      );
+                    } else {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const PageControllers()),
+                      );
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.transparent,
@@ -113,7 +124,7 @@ class _MyHomePageState extends State<MyHomePage>
                       borderRadius: BorderRadius.circular(30),
                     ),
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 32, vertical: 12),
+                        horizontal: 32, vertical: 15),
                   ),
                   child: const Text(
                     'Get Started',
@@ -125,9 +136,7 @@ class _MyHomePageState extends State<MyHomePage>
                 ),
               ),
               const SizedBox(height: 30),
-              SizedBox(
-                  height: MediaQuery.of(context).size.height *
-                      0.1), // Adjusts the space at the bottom
+              SizedBox(height: MediaQuery.of(context).size.height * 0.1),
             ],
           ),
         ),

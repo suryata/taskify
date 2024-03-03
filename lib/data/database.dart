@@ -36,39 +36,108 @@ class ProfileInfo {
   }
 }
 
+class Task {
+  String title;
+  bool isCompleted;
+  DateTime startDate;
+  DateTime endDate;
+  String category;
+  String description;
+
+  Task({
+    required this.title,
+    this.isCompleted = false,
+    required this.startDate,
+    required this.endDate,
+    required this.category,
+    required this.description,
+  });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'title': title,
+      'isCompleted': isCompleted,
+      'startDate': startDate.toIso8601String(),
+      'endDate': endDate.toIso8601String(),
+      'category': category,
+      'description': description,
+    };
+  }
+
+  static Task fromMap(Map<String, dynamic> map) {
+    return Task(
+      title: map['title'],
+      isCompleted: map['isCompleted'] ?? false,
+      startDate: DateTime.parse(map['startDate']),
+      endDate: DateTime.parse(map['endDate']),
+      category: map['category'],
+      description: map['description'],
+    );
+  }
+}
+
 class ToDoDataBase {
-  List toDoList = [];
-  final _myBox = Hive.box('mybox');
+  Box<dynamic> _myBox = Hive.box('mybox');
 
-  void createInitialData() {
-    toDoList = [
-      ["Make Tutorial", false],
-      ["Do Exercise", false],
-    ];
+  void addTask(Task task) {
+    final taskMap = {
+      'title': task.title,
+      'startDate': task.startDate.toIso8601String(),
+      'endDate': task.endDate.toIso8601String(),
+      'category': task.category,
+      'description': task.description,
+      'isCompleted': task.isCompleted,
+    };
+    _myBox.add(taskMap);
   }
 
-  void loadData() {
-    toDoList = _myBox.get("TODOLIST") ?? [];
+  void updateTask(int index, Task task) {
+    final taskMap = {
+      'title': task.title,
+      'startDate': task.startDate.toIso8601String(),
+      'endDate': task.endDate.toIso8601String(),
+      'category': task.category,
+      'description': task.description,
+      'isCompleted': task.isCompleted,
+    };
+    _myBox.putAt(index, taskMap);
   }
 
-  void updateDataBase() {
-    _myBox.put("TODOLIST", toDoList);
+  void deleteTask(int index) {
+    _myBox.deleteAt(index);
   }
 
-  // Fungsi untuk menyimpan info profil
+  List<Task> getTasks() {
+    return _myBox.values
+        .where(
+            (element) => element is Map && element['title']?.isNotEmpty == true)
+        .map((e) => Task(
+              title: e['title'],
+              isCompleted: e['isCompleted'] ?? false,
+              startDate: DateTime.parse(e['startDate']),
+              endDate: DateTime.parse(e['endDate']),
+              category: e['category'] ?? '',
+              description: e['description'] ?? '',
+            ))
+        .toList();
+  }
+
   void saveProfileInfo(ProfileInfo profileInfo) {
     _myBox.put('profileInfo', profileInfo.toMap());
   }
 
-  // Fungsi untuk memuat info profil
   ProfileInfo loadProfileInfo() {
-    var profileMap = _myBox.get('profileInfo', defaultValue: {
-      'name': 'Nama Anda',
-      'major': 'Jurusan Anda',
-      'dateOfBirth': 'Tanggal Lahir Anda',
-      'email': 'Email Anda',
-      'profileImagePath': '',
-    });
-    return ProfileInfo.fromMap(profileMap);
+    var profileMap = _myBox.get('profileInfo');
+    if (profileMap != null) {
+      return ProfileInfo.fromMap(profileMap.cast<String, dynamic>());
+    } else {
+      return ProfileInfo(
+        name: '',
+        major: '',
+        dateOfBirth: '',
+        email: '',
+        profileImagePath: '',
+      );
+    }
   }
 }
