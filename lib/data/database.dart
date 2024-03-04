@@ -6,6 +6,9 @@ class ProfileInfo {
   String dateOfBirth;
   String email;
   String profileImagePath;
+  String fullName;
+  String hobby;
+  String socialMedia;
 
   ProfileInfo({
     required this.name,
@@ -13,6 +16,9 @@ class ProfileInfo {
     required this.dateOfBirth,
     required this.email,
     required this.profileImagePath,
+    required this.fullName,
+    required this.hobby,
+    required this.socialMedia,
   });
 
   Map<String, dynamic> toMap() {
@@ -22,6 +28,9 @@ class ProfileInfo {
       'dateOfBirth': dateOfBirth,
       'email': email,
       'profileImagePath': profileImagePath,
+      'fullName': fullName,
+      'hobby': hobby,
+      'socialMedia': socialMedia,
     };
   }
 
@@ -32,6 +41,9 @@ class ProfileInfo {
       dateOfBirth: map['dateOfBirth'],
       email: map['email'],
       profileImagePath: map['profileImagePath'],
+      fullName: map['fullName'],
+      hobby: map['hobby'],
+      socialMedia: map['socialMedia'],
     );
   }
 }
@@ -132,11 +144,14 @@ class ToDoDataBase {
       return ProfileInfo.fromMap(profileMap.cast<String, dynamic>());
     } else {
       return ProfileInfo(
-        name: '',
+        name: '', // Digunakan untuk 'nickname' juga
         major: '',
         dateOfBirth: '',
         email: '',
         profileImagePath: '',
+        fullName: '', // Tambahkan nilai default untuk 'fullName'
+        hobby: '', // Tambahkan nilai default untuk 'hobby'
+        socialMedia: '', // Tambahkan nilai default untuk 'socialMedia'
       );
     }
   }

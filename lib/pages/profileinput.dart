@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:taskify/pages/page_controller.dart';
 import 'dart:io';
+import 'package:taskify/pages/page_controller.dart';
 import 'landing.dart';
 import '../data/database.dart';
 
@@ -17,10 +17,13 @@ class ProfileInputPage extends StatefulWidget {
 
 class _ProfileInputPageState extends State<ProfileInputPage> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _fullNameController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _majorController = TextEditingController();
   final TextEditingController _dobController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _socialMediaController = TextEditingController();
+  final TextEditingController _hobbyController = TextEditingController();
   File? _imageFile;
   final ToDoDataBase _database = ToDoDataBase();
 
@@ -63,6 +66,9 @@ class _ProfileInputPageState extends State<ProfileInputPage> {
         dateOfBirth: _dobController.text,
         email: _emailController.text,
         profileImagePath: _imageFile?.path ?? '',
+        fullName: _fullNameController.text,
+        hobby: _hobbyController.text,
+        socialMedia: _socialMediaController.text, // Menyimpan Instagram
       );
 
       _database.saveProfileInfo(profileInfo);
@@ -104,7 +110,11 @@ class _ProfileInputPageState extends State<ProfileInputPage> {
                 ),
               ),
               const SizedBox(height: 35),
-              _buildTextFormField(label: 'Name', controller: _nameController),
+              _buildTextFormField(
+                  label: 'Full Name',
+                  controller: _fullNameController), // Field untuk fullName
+              _buildTextFormField(
+                  label: 'Nickname', controller: _nameController),
               _buildTextFormField(label: 'Major', controller: _majorController),
               _buildTextFormField(
                   label: 'Date of Birth',
@@ -123,6 +133,9 @@ class _ProfileInputPageState extends State<ProfileInputPage> {
                   return null;
                 },
               ),
+              _buildTextFormField(
+                  label: 'Instagram', controller: _socialMediaController),
+              _buildTextFormField(label: 'Hobby', controller: _hobbyController),
               const SizedBox(height: 45),
               ElevatedButton(
                 onPressed: _saveProfileAndNavigate,
