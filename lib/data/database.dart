@@ -144,14 +144,14 @@ class ToDoDataBase {
       return ProfileInfo.fromMap(profileMap.cast<String, dynamic>());
     } else {
       return ProfileInfo(
-        name: '', // Digunakan untuk 'nickname' juga
+        name: '',
         major: '',
         dateOfBirth: '',
         email: '',
         profileImagePath: '',
-        fullName: '', // Tambahkan nilai default untuk 'fullName'
-        hobby: '', // Tambahkan nilai default untuk 'hobby'
-        socialMedia: '', // Tambahkan nilai default untuk 'socialMedia'
+        fullName: '',
+        hobby: '',
+        socialMedia: '',
       );
     }
   }
