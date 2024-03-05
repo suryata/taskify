@@ -3,6 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 
 class ToDoTile extends StatefulWidget {
   final String taskName;
+  final String taskDescription;
   final bool taskCompleted;
   final Function(bool?) onChanged;
   final Function(BuildContext) deleteFunction;
@@ -11,6 +12,7 @@ class ToDoTile extends StatefulWidget {
   const ToDoTile({
     Key? key,
     required this.taskName,
+    required this.taskDescription,
     required this.taskCompleted,
     required this.onChanged,
     required this.deleteFunction,
@@ -24,7 +26,6 @@ class ToDoTile extends StatefulWidget {
 class _ToDoTileState extends State<ToDoTile> {
   @override
   Widget build(BuildContext context) {
-    // Always show the task row, but conditionally wrap it with Slidable
     return Padding(
       padding: const EdgeInsets.only(left: 20.0, right: 20, top: 20),
       child: widget.taskCompleted ? _buildTaskRow() : _buildSlidableTaskRow(),
@@ -73,11 +74,7 @@ class _ToDoTileState extends State<ToDoTile> {
         children: [
           Checkbox(
             value: widget.taskCompleted,
-            onChanged: (bool? value) {
-              if (value != null) {
-                widget.onChanged(value);
-              }
-            },
+            onChanged: widget.onChanged,
             shape: CircleBorder(),
             activeColor: Color.fromARGB(255, 31, 45, 91),
             checkColor: Colors.white,
@@ -95,6 +92,44 @@ class _ToDoTileState extends State<ToDoTile> {
                     : Colors.black,
               ),
             ),
+          ),
+          IconButton(
+            icon: Icon(Icons.info_outline,
+                color: Color.fromARGB(255, 31, 45, 91)),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    backgroundColor: Colors.blueGrey[100],
+                    title: Text(
+                      "Task Description",
+                      style:
+                          TextStyle(color: Color.fromARGB(255, 16, 104, 156)),
+                    ),
+                    content: Text(
+                      widget.taskDescription,
+                      style: TextStyle(color: Colors.black54),
+                    ),
+                    actions: <Widget>[
+                      TextButton(
+                        child: Text(
+                          "Close",
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 16, 104, 156)),
+                        ),
+                        style: TextButton.styleFrom(
+                          backgroundColor: Colors.grey[200],
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
           ),
         ],
       ),

@@ -80,6 +80,7 @@ class _PastTaskPageState extends State<PastTaskPage> {
                           if (tasks[index].isCompleted) {
                             return ToDoTile(
                               taskName: tasks[index].title,
+                              taskDescription: tasks[index].description,
                               taskCompleted: tasks[index].isCompleted,
                               onChanged: (value) {},
                               editFunction: (context) {},

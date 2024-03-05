@@ -23,11 +23,14 @@ class _ProfilePageState extends State<ProfilePage> {
       File newImageFile = File(pickedFile.path);
 
       ProfileInfo updatedProfileInfo = ProfileInfo(
+        fullName: _database.loadProfileInfo().fullName,
         name: _database.loadProfileInfo().name,
         major: _database.loadProfileInfo().major,
         dateOfBirth: _database.loadProfileInfo().dateOfBirth,
         email: _database.loadProfileInfo().email,
         profileImagePath: newImageFile.path,
+        hobby: _database.loadProfileInfo().hobby,
+        socialMedia: _database.loadProfileInfo().socialMedia,
       );
 
       _database.saveProfileInfo(updatedProfileInfo);
@@ -44,8 +47,7 @@ class _ProfilePageState extends State<ProfilePage> {
     final profileInfo = _database.loadProfileInfo();
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(
-          255, 16, 104, 156), // Blue background color for the upper part
+      backgroundColor: Color.fromARGB(255, 16, 104, 156),
       appBar: AppBar(
         title: const Padding(
           padding: EdgeInsets.only(top: 30.0),
@@ -69,7 +71,7 @@ class _ProfilePageState extends State<ProfilePage> {
             child: Container(
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Color(0xFFEFFEFF), // Background color for the lower part
+                color: Color(0xFFEFFEFF),
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(55),
                   topRight: Radius.circular(55),
@@ -117,11 +119,14 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    _buildProfileField('Name', profileInfo.name),
+                    _buildProfileField('Full Name', profileInfo.fullName),
+                    _buildProfileField('Nickname', profileInfo.name),
                     _buildProfileField('Major', profileInfo.major),
                     _buildProfileField(
                         'Date of Birth', profileInfo.dateOfBirth),
                     _buildProfileField('Email', profileInfo.email),
+                    _buildProfileField('Hobby', profileInfo.hobby),
+                    _buildProfileField('Instagram', profileInfo.socialMedia),
                   ],
                 ),
               ),

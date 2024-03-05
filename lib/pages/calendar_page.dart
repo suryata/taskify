@@ -49,46 +49,85 @@ class _CalendarPageState extends State<CalendarPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFEFFEFF),
       appBar: AppBar(
-        title: Text('Calendar'),
-      ),
-      body: Column(
-        children: [
-          TableCalendar(
-            focusedDay: _focusedDay,
-            firstDay: DateTime.utc(2010, 10, 16),
-            lastDay: DateTime.utc(2030, 3, 14),
-            calendarFormat: CalendarFormat.month,
-            availableCalendarFormats: const {
-              CalendarFormat.month: 'Month',
-            },
-            eventLoader: (day) {
-              return _events[DateTime(day.year, day.month, day.day)] ?? [];
-            },
-            selectedDayPredicate: (day) {
-              return isSameDay(_selectedDay, day);
-            },
-            onDaySelected: (selectedDay, focusedDay) {
-              setState(() {
-                _selectedDay = selectedDay;
-                _focusedDay = focusedDay;
-                _selectedTasks = _events[selectedDay] ?? [];
-              });
-            },
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: _selectedTasks.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(_selectedTasks[index].title),
-                  subtitle: Text(
-                      'End Date: ${_selectedTasks[index].endDate.toIso8601String()}'),
-                );
-              },
+        title: const Padding(
+          padding: EdgeInsets.only(top: 30.0),
+          child: Text(
+            'Calendar',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 25.0,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 1.0,
             ),
           ),
-        ],
+        ),
+        backgroundColor: Color.fromARGB(255, 16, 104, 156),
+        elevation: 0,
+      ),
+      body: Container(
+        color: Color.fromARGB(255, 16, 104, 156),
+        child: Column(
+          children: [
+            SizedBox(height: 30),
+            Expanded(
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Color(0xFFEFFEFF),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(55),
+                    topRight: Radius.circular(55),
+                  ),
+                ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(height: 30),
+                      TableCalendar(
+                        focusedDay: _focusedDay,
+                        firstDay: DateTime.utc(2010, 10, 16),
+                        lastDay: DateTime.utc(2030, 3, 14),
+                        calendarFormat: CalendarFormat.month,
+                        availableCalendarFormats: const {
+                          CalendarFormat.month: 'Month',
+                        },
+                        eventLoader: (day) {
+                          return _events[
+                                  DateTime(day.year, day.month, day.day)] ??
+                              [];
+                        },
+                        selectedDayPredicate: (day) {
+                          return isSameDay(_selectedDay, day);
+                        },
+                        onDaySelected: (selectedDay, focusedDay) {
+                          setState(() {
+                            _selectedDay = selectedDay;
+                            _focusedDay = focusedDay;
+                            _selectedTasks = _events[selectedDay] ?? [];
+                          });
+                        },
+                      ),
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: _selectedTasks.length,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title: Text(_selectedTasks[index].title),
+                            subtitle: Text(
+                                'End Date: ${_selectedTasks[index].endDate.toIso8601String()}'),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

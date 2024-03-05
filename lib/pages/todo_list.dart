@@ -13,6 +13,8 @@ class TodoPage extends StatefulWidget {
 
 class _TodoPageState extends State<TodoPage> {
   late ToDoDataBase db;
+  final TextEditingController _searchController = TextEditingController();
+  String _selectedCategory = 'All';
 
   @override
   void initState() {
@@ -31,6 +33,16 @@ class _TodoPageState extends State<TodoPage> {
   @override
   Widget build(BuildContext context) {
     List<Task> tasks = db.getTasks();
+
+    tasks = tasks.where((task) {
+      final matchQuery = _searchController.text.isEmpty ||
+          task.title
+              .toLowerCase()
+              .contains(_searchController.text.toLowerCase());
+      final matchCategory =
+          _selectedCategory == 'All' || task.category == _selectedCategory;
+      return matchQuery && matchCategory;
+    }).toList();
 
     return Scaffold(
       backgroundColor: Color(0xFFEFFEFF),
@@ -104,6 +116,73 @@ class _TodoPageState extends State<TodoPage> {
                           ],
                         ),
                       ),
+                      // Search Bar and Category Filter Row
+                      Row(
+                        children: [
+                          Expanded(
+                            flex: 8,
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 8.0),
+                              child: ConstrainedBox(
+                                constraints:
+                                    BoxConstraints.tightFor(height: 58),
+                                child: TextField(
+                                  controller: _searchController,
+                                  decoration: InputDecoration(
+                                    labelText: 'Search tasks',
+                                    prefixIcon: Icon(Icons.search),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                  ),
+                                  onChanged: (value) => setState(() {}),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: ConstrainedBox(
+                              constraints: BoxConstraints.tightFor(height: 55),
+                              child: Container(
+                                padding: EdgeInsets.symmetric(horizontal: 2.0),
+                                decoration: BoxDecoration(
+                                  border:
+                                      Border.all(color: Colors.grey, width: 1),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: DropdownButtonHideUnderline(
+                                  child: DropdownButton<String>(
+                                    value: _selectedCategory,
+                                    isDense: true,
+                                    isExpanded: true,
+                                    dropdownColor: Colors.white,
+                                    iconSize: 24,
+                                    items: [
+                                      'All',
+                                      'Priority Task',
+                                      'Daily Task'
+                                    ]
+                                        .map((String value) =>
+                                            DropdownMenuItem<String>(
+                                              value: value,
+                                              child: Text(value,
+                                                  style:
+                                                      TextStyle(fontSize: 14)),
+                                            ))
+                                        .toList(),
+                                    onChanged: (String? newValue) {
+                                      setState(() {
+                                        _selectedCategory = newValue!;
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                       ListView.builder(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
@@ -113,6 +192,7 @@ class _TodoPageState extends State<TodoPage> {
                             // Hanya tampilkan jika belum selesai
                             return ToDoTile(
                               taskName: tasks[index].title,
+                              taskDescription: tasks[index].description,
                               taskCompleted: tasks[index].isCompleted,
                               onChanged: (value) {
                                 setState(() {
