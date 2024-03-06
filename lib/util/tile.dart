@@ -28,7 +28,7 @@ class _ToDoTileState extends State<ToDoTile> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 20.0, right: 20, top: 20),
-      child: widget.taskCompleted ? _buildTaskRow() : _buildSlidableTaskRow(),
+      child: _buildSlidableTaskRow(),
     );
   }
 
@@ -36,20 +36,31 @@ class _ToDoTileState extends State<ToDoTile> {
     return Slidable(
       endActionPane: ActionPane(
         motion: const StretchMotion(),
-        children: [
-          SlidableAction(
-            onPressed: widget.editFunction,
-            icon: Icons.edit,
-            backgroundColor: Colors.green,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          SlidableAction(
-            onPressed: widget.deleteFunction,
-            icon: Icons.delete,
-            backgroundColor: const Color.fromARGB(255, 237, 148, 148),
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ],
+        children: widget.taskCompleted
+            ? [
+                // If the task is completed, only show the delete option
+                SlidableAction(
+                  onPressed: widget.deleteFunction,
+                  icon: Icons.delete,
+                  backgroundColor: const Color.fromARGB(255, 237, 148, 148),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ]
+            : [
+                // If the task is not completed, show both edit and delete options
+                SlidableAction(
+                  onPressed: widget.editFunction,
+                  icon: Icons.edit,
+                  backgroundColor: Colors.green,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                SlidableAction(
+                  onPressed: widget.deleteFunction,
+                  icon: Icons.delete,
+                  backgroundColor: const Color.fromARGB(255, 237, 148, 148),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ],
       ),
       child: _buildTaskRow(),
     );
@@ -102,25 +113,16 @@ class _ToDoTileState extends State<ToDoTile> {
                 builder: (BuildContext context) {
                   return AlertDialog(
                     backgroundColor: Colors.blueGrey[100],
-                    title: Text(
-                      "Task Description",
-                      style:
-                          TextStyle(color: Color.fromARGB(255, 16, 104, 156)),
-                    ),
-                    content: Text(
-                      widget.taskDescription,
-                      style: TextStyle(color: Colors.black54),
-                    ),
+                    title: Text("Task Description",
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 16, 104, 156))),
+                    content: Text(widget.taskDescription,
+                        style: TextStyle(color: Colors.black54)),
                     actions: <Widget>[
                       TextButton(
-                        child: Text(
-                          "Close",
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 16, 104, 156)),
-                        ),
-                        style: TextButton.styleFrom(
-                          backgroundColor: Colors.grey[200],
-                        ),
+                        child: Text("Close",
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 16, 104, 156))),
                         onPressed: () {
                           Navigator.of(context).pop();
                         },

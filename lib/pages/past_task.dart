@@ -48,8 +48,6 @@ class _PastTaskPageState extends State<PastTaskPage> {
         backgroundColor: Color.fromARGB(255, 16, 104, 156),
         elevation: 0,
       ),
-      // Floating action button dan lokasinya bisa disesuaikan atau dihilangkan
-      // sesuai dengan kebutuhan halaman PastTaskPage.
       body: Container(
         color: Color.fromARGB(255, 16, 104, 156),
         child: Column(
@@ -84,7 +82,11 @@ class _PastTaskPageState extends State<PastTaskPage> {
                               taskCompleted: tasks[index].isCompleted,
                               onChanged: (value) {},
                               editFunction: (context) {},
-                              deleteFunction: (context) {},
+                              deleteFunction: (context) {
+                                setState(() {
+                                  db.deleteTask(index);
+                                });
+                              },
                             );
                           } else {
                             return Container();
