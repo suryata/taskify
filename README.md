@@ -11,6 +11,8 @@ Taskify is a comprehensive task management application designed to help users st
 
 ![Our Features](https://cdn.discordapp.com/attachments/1195589497702862870/1214753293608288326/Register.png?ex=65fa422a&is=65e7cd2a&hm=9a84720b86f80e1028d9c7ad8e6b972c3d32197041f33d06c929f32b4bc13755&)
 
+![Still Our Features:)](https://cdn.discordapp.com/attachments/1195589497702862870/1214753294061142016/New.png?ex=65fa422a&is=65e7cd2a&hm=cead5cf5e5db2cf611fad3dbdd93d0140655d3ddbe955782ef557a0c84012b07&)
+
 ## ⚜️ Our Core Features ⚜️
 
 - Task Management<br> 
@@ -66,4 +68,13 @@ Facilitates internationalization and localization, used for formatting dates and
 
 - table_calendar (^3.0.0)<br> 
 A highly customizable calendar widget, used to integrate calendar functionalities for task scheduling and viewing.<br> 
+</div>
+
+## Essay 📃
+<div align="justify">
+Creating Taskify was more than just a coding for me; it was a journey filled with learning, exploration, and growth. As I embarked on developing this application, I was introduced to the vast capabilities of Flutter and Dart. The flexibility of Flutter's widget-based architecture allowed me to design an intuitive and user-friendly interface, emphasizing the importance of a seamless user experience. Through the process, the challenge of managing the application's state became apparent, pushing me to delve deeper into various state management techniques. The use of Hive for local data storage emerged as a crucial aspect, highlighting the need for efficient and secure management of user data and preferences.
+
+The journey was supported by an array of invaluable resources. The official Flutter documentation was guiding me through the intricacies of the framework and its best practices. Hive's documentation provided the roadmap for implementing local storage, ensuring data was handled efficiently. Challenges were inevitable, yet the collective wisdom found on Stack Overflow served as a beacon, offering solutions and insights that were instrumental in overcoming hurdles. Furthermore, YouTube tutorials brought the concepts to me, for offering practical guidance that enriched my understanding and skills.
+
+Developing Taskify was an enlightening journey that went far beyond just coding. It was about using technology to build a tool that boosts productivity and makes managing tasks easier. This experience taught me a lot, not only through overcoming challenges but also through the valuable insights and support from the Flutter documentations. Taskify is a result of this journey, showcasing the learning process and how technology can organize our daily lives better.
 </div>
