@@ -1,4 +1,4 @@
-# Taskify 🗒️: Your Path to Productivity! 📝
+# Taskify 🧘‍♀️: Your Path to Productivity! 📝
 **A platform that transforming the way you organize life, where every task becomes a step towards success, encouraging you to stay focused, venture into efficiency, and find inspiration in every accomplishment.**
 
 ## 👨‍💻 Meet the Dev👩‍💻
