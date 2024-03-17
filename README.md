@@ -2,7 +2,7 @@
 **A platform that transforming the way you organize life, where every task becomes a step towards success, encouraging you to stay focused, venture into efficiency, and find inspiration in every accomplishment.**
 
 ## 👨‍💻 Meet the Dev👩‍💻
-I Made Surya Anahata Putra - 2206081370  
+I Made Surya Anahata Putra 
 
 ## 🗒️ Taskify 🗒️
 <div align="justify">
