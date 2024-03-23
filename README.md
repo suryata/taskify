@@ -9,9 +9,9 @@ I Made Surya Anahata Putra
 Taskify is a comprehensive task management application designed to help users streamline their daily activities and enhance productivity. It provides a user-friendly interface that allows for efficient tracking of personal and professional tasks.Designed with simplicity and ease of use in mind, Taskify boasts a clean and intuitive interface that enhances user experience. The application utilizes a cohesive color scheme and modern design elements to create a visually appealing environment for task management. Here's a brief overview of the application and its features:<br>
 <br> 
 
-![Our Features](https://cdn.discordapp.com/attachments/1195589497702862870/1214753293608288326/Register.png?ex=65fa422a&is=65e7cd2a&hm=9a84720b86f80e1028d9c7ad8e6b972c3d32197041f33d06c929f32b4bc13755&)
+![Our Features](assets/images/Register.png)
 
-![Still Our Features:)](https://cdn.discordapp.com/attachments/1195589497702862870/1214753294061142016/New.png?ex=65fa422a&is=65e7cd2a&hm=cead5cf5e5db2cf611fad3dbdd93d0140655d3ddbe955782ef557a0c84012b07&)
+![Still Our Features:)](assets/images/New.png)
 
 ## ⚜️ Our Core Features ⚜️
 
